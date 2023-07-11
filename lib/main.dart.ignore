@@ -8,21 +8,41 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   dataProvider = DataProvider();
   await dataProvider.open();
+  // await dataProvider.dummyData();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Future<int> count = dataProvider.count();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.blue, title: const Text("Simply Private")),
+          backgroundColor: Colors.blue,
+          title: FutureBuilder<int>(
+            future: count,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text("Simply Private: ${snapshot.data}");
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
+          // title: Text("Simply Private"),
+        ),
         body: ListView.builder(
           itemBuilder: (_, index) {
-            return const ChatPreview();
+            return ChatPreview();
           },
         ),
         floatingActionButton: FloatingActionButton(
