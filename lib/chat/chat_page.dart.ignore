@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+class ChatPage extends StatelessWidget {
+  const ChatPage({super.key});
+
+  void onSubmitMessage(String message) {}
+  void onSubmitMessageButton() {}
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Name')),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              itemBuilder: (_, i) {
+                return Text('Message $i', textScaleFactor: 3);
+              },
+            ),
+          ),
+          TextField(
+            onSubmitted: onSubmitMessage,
+            decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
+            ),
+          ),
+          // Container(
+          //   padding: EdgeInsets.all(32),
+          //   margin: EdgeInsets.all(0),
+          //   alignment: Alignment.bottomRight,
+          //   color: Colors.red,
+          //   child: Row(
+          //     children: [
+          //       TextField(
+          //         onSubmitted: onSubmitMessage,
+          //         decoration: InputDecoration(
+          //           border: OutlineInputBorder(
+          //               borderRadius: BorderRadius.circular(100)),
+          //         ),
+          //       ),
+          //       IconButton(
+          //           onPressed: onSubmitMessageButton,
+          //           icon: Icon(Icons.send_rounded))
+          //     ],
+          //   ),
+          // ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.end,
+      ),
+    );
+  }
+}
